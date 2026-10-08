@@ -1,2 +1,3 @@
-# AuraG2P Codeless Builder
-Block desk. Export a single HTML file. Updated 2026-10-05.
+# Aura G2P
+
+Operating surface updated 2026-10-07. Open index.html. Canon note: GROK_WORKSPACE_NOTE.md.

@@ -1,45 +1,85 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Codeless Web Builder</title><style>
-:root{--bg:#0c0e12;--panel:#141820;--line:#2a3140;--ink:#e8e4da;--muted:#9a9386;--gold:#c6a15b;--teal:#6fbfb0;--danger:#c46b6b}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Segoe UI",system-ui,sans-serif}
-a{color:var(--gold);text-decoration:none}header{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
-h1{font-size:20px;margin:0;letter-spacing:.04em}h2{font-size:16px;margin:0 0 8px}.muted{color:var(--muted)}
-.wrap{display:grid;grid-template-columns:240px 1fr;min-height:calc(100vh - 64px)}
-nav button,button,.chip{background:#1c2230;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer}
-nav{padding:14px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
-main{padding:18px} .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
-.card h3{margin:0 0 6px;font-size:15px}.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
-input,select,textarea{background:#0f131a;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px;width:100%}
-pre,textarea.log{font:12px/1.4 ui-monospace,monospace;white-space:pre-wrap}
-.player{background:#000;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
-video{width:100%;max-height:360px;background:#000;display:block}
-.tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--line);padding:6px;text-align:left;font-size:13px}
-</style></head><body>
-<header><div><div class="tag">G2P Technologies</div><h1>Codeless Web Builder</h1><div class="muted">Block page, name the business, export static HTML</div></div>
-<div class="row"><a href="../index.html">Command</a><a href="../office/index.html">Office</a><a href="../sm/index.html">Small–Medium</a><a href="../ml/index.html">Medium–Large</a><a href="../builder/index.html">Builder</a></div>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Aura Codeless Builder</title>
+<style>
+:root { --bg:#0c0f14; --panel:#151b24; --line:#2a3444; --text:#e8edf5; --muted:#93a0b5; --accent:#d7b36a; --ok:#7dcea0; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Georgia, "Iowan Old Style", serif; background:radial-gradient(1200px 500px at 10% -10%, #1c2838, var(--bg)); color:var(--text); }
+header { display:flex; justify-content:space-between; gap:16px; align-items:flex-end; padding:28px 32px 12px; border-bottom:1px solid var(--line); }
+h1 { font-weight:500; letter-spacing:.04em; margin:0; font-size:28px; }
+.kicker { color:var(--accent); letter-spacing:.18em; text-transform:uppercase; font-size:11px; font-family:ui-sans-serif, system-ui; }
+nav button, .btn { background:#1c2533; color:var(--text); border:1px solid var(--line); border-radius:999px; padding:8px 14px; cursor:pointer; font-family:ui-sans-serif, system-ui; }
+nav button.on, .btn.primary { background:var(--accent); color:#1a1408; border-color:var(--accent); }
+main { padding:22px 32px 64px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:14px; }
+.card { background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px; }
+.card h3 { margin:0 0 8px; font-size:18px; }
+.muted { color:var(--muted); font-family:ui-sans-serif, system-ui; font-size:13px; line-height:1.45; }
+input, select, textarea { width:100%; background:#0e141c; color:var(--text); border:1px solid var(--line); border-radius:10px; padding:8px 10px; font-family:ui-sans-serif, system-ui; }
+textarea { min-height:90px; }
+label { display:block; font-size:12px; color:var(--muted); margin:8px 0 4px; font-family:ui-sans-serif, system-ui; }
+pre, .mono { font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px; white-space:pre-wrap; }
+.player { background:#090d13; border:1px solid var(--line); border-radius:16px; padding:12px; }
+video, audio { width:100%; }
+.tag { display:inline-block; margin:4px 4px 0 0; padding:4px 8px; border-radius:999px; border:1px solid var(--line); font-size:12px; font-family:ui-sans-serif, system-ui; }
+section { display:none; }
+section.on { display:block; }
+table { width:100%; border-collapse:collapse; font-family:ui-sans-serif, system-ui; font-size:13px; }
+td, th { border-bottom:1px solid var(--line); text-align:left; padding:8px; }
+</style>
+</head>
+<body>
+<header>
+  <div><div class="kicker">Template pages without a framework</div><h1>Aura Codeless Builder</h1></div>
+  <nav id="nav"></nav>
 </header>
-<div class="wrap"><nav><button>Canvas</button></nav><main>
-<section><div class="grid">
-<div class="card"><h3>Blocks</h3>
-<div class="row"><button data-b="hero">Hero</button><button data-b="offer">Offer</button><button data-b="proof">Proof</button><button data-b="contact">Contact</button><button data-b="player">Player</button></div>
-<label>Business<input id="biz" value="AuraG2P Studio"></label>
-</div>
-<div class="card"><h3>Canvas</h3><div id="canvas"></div><div class="row"><button id="up">Export HTML</button><button id="clear">Clear</button></div></div>
-</div>
-<div class="card"><h3>Player block</h3><div class="player"><video id="pv" controls playsinline></video></div><input type="file" id="pf" accept="video/*,audio/*"></div>
+<main>
+<section data-tab="Canvas">
+  <div class="grid">
+    <article class="card">
+      <h3>Blocks</h3>
+      <label>Headline</label><input id="h" value="Book the room"/>
+      <label>Sub</label><input id="s" value="Aura G2P keeps the session, the files, and the release in one place."/>
+      <label>Color</label><input id="c" value="#102033"/>
+      <p><button class="btn primary" onclick="render()">Render and download</button></p>
+    </article>
+    <article class="card"><iframe id="pv" style="width:100%;height:320px;border:0;background:#fff;border-radius:12px"></iframe></article>
+  </div>
 </section>
-</main></div>
+<section data-tab="Method">
+  <article class="card"><h3>Best build path</h3><p class="muted">Static HTML first. Host on the existing GitHub pages or Hostinger desk. Add a backend only when payments or logins are real. Templates stay data, not plugins, so the page stays fast.</p></article>
+</section>
 <script>
-const $=s=>document.querySelector(s); const blocks=[];
-function paint(){ $('#canvas').innerHTML=blocks.map((b,i)=>`<div class="card"><b>${b}</b> — ${$('#biz').value}<div><button data-x="${i}">remove</button></div></div>`).join('')||'<p class="muted">Add blocks. Order is the page.</p>';
- document.querySelectorAll('[data-x]').forEach(b=>b.onclick=()=>{blocks.splice(+b.dataset.x,1);paint();}); }
-document.querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{blocks.push(b.dataset.b);paint();});
-$('#clear').onclick=()=>{blocks.length=0;paint();};
-$('#up').onclick=()=>{ const name=$('#biz').value; const html='<!doctype html><meta charset=utf-8><title>'+name+'</title><h1>'+name+'</h1>'+blocks.map(b=>'<section><h2>'+b+'</h2></section>').join('');
- const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([html],{type:'text/html'})); a.download='site.html'; a.click(); };
-$('#pf').onchange=e=>{const f=e.target.files[0]; if(f) $('#pv').src=URL.createObjectURL(f);};
-paint();
-</script></body></html>
+function render() {
+  const html = '<!doctype html><meta charset=utf-8><title>'+h.value+'</title><body style="margin:0;font-family:Georgia;background:'+c.value+';color:#f4f1ea"><main style="max-width:720px;margin:auto;padding:64px 24px"><p style="letter-spacing:.2em;text-transform:uppercase;font-size:12px">Aura G2P</p><h1>'+h.value+'</h1><p>'+s.value+'</p><a href="#book" style="color:#e7c98a">Request a session</a></main></body>';
+  pv.srcdoc = html;
+  dl('page.html', html, 'text/html');
+}
+render();
+</script>
+</main>
+<script>
+const nav = document.getElementById('nav');
+const sections = [...document.querySelectorAll('main section')];
+sections.forEach((s,i) => {
+  const b = document.createElement('button');
+  b.textContent = s.dataset.tab;
+  if(i===0) { b.classList.add('on'); s.classList.add('on'); }
+  b.onclick = () => {
+    sections.forEach(x => x.classList.remove('on'));
+    [...nav.children].forEach(x => x.classList.remove('on'));
+    s.classList.add('on'); b.classList.add('on');
+  };
+  nav.appendChild(b);
+});
+function dl(name, text, type='text/plain') {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {type}));
+  a.download = name; a.click();
+}
+</script>
+</body>
+</html>
